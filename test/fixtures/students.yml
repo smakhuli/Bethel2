@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  year: 1
+  sex: MyString
+  country: MyString
+  tuition_paid: 1
+  tuition_due: 1
+
+two:
+  name: MyString
+  year: 1
+  sex: MyString
+  country: MyString
+  tuition_paid: 1
+  tuition_due: 1

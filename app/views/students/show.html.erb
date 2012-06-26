@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @student.name %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%= @student.year %>
+</p>
+
+<p>
+  <b>Sex:</b>
+  <%= @student.sex %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @student.country %>
+</p>
+
+<p>
+  <b>Tuition paid:</b>
+  <%= @student.tuition_paid %>
+</p>
+
+<p>
+  <b>Tuition due:</b>
+  <%= @student.tuition_due %>
+</p>
+
+
+<%= link_to 'Edit', edit_student_path(@student) %> |
+<%= link_to 'Back', students_path %>
