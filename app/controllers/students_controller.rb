@@ -4,7 +4,22 @@ class StudentsController < ApplicationController
   def index
     @students = Student.all
 
-    flickrAPI
+    #Set the # of pictures to return from the Flickr API (index) and the tag 
+    @urll2 = Array.new(5)
+    @index = 4
+    (1..@index).each do |p|
+    	flickrAPI(p, "Bethel church")
+
+	set_urll2(p)
+    end
+
+    @urll3 = Array.new(5)
+#    @index = 4
+    (1..@index).each do |q|
+	    flickrAPI(q, "Bethel")
+
+	    set_urll3(q)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -83,12 +98,13 @@ class StudentsController < ApplicationController
     end
   end
 
-  def flickrAPI
+  def flickrAPI(num_pages, tag_value)
 	require 'net/http'
 	require 'uri'
 	require 'rexml/document'
 	uri = URI.parse("http://api.flickr.com/services/rest/")
-	params={'method'=>'flickr.photos.search','api.key'=>'cf605e9203bdddb1fd806b04a620ce50','accuracy'=>'10','sort'=>'relevance','media'=>'photos','tags'=>'bethel church'}
+
+	params={'method'=>'flickr.photos.search','api.key'=>'cf605e9203bdddb1fd806b04a620ce50','accuracy'=>'10','sort'=>'relevance','media'=>'photos','tags'=>tag_value,'page'=>num_pages}
 
 	http=Net::HTTP.new(uri.host,uri.port)
 	request=Net::HTTP::Get.new(uri.path)
@@ -99,13 +115,22 @@ class StudentsController < ApplicationController
 
 	response = http.request(request)
 	xml_data = response.body
+
 	doc = REXML::Document.new(xml_data)
 		doc.root.elements[1].each_element{|e|
-		if e.attributes['title'] =~ /#{Regexp.escape('bethel church')}/i
+		if e.attributes['title'] =~ /#{Regexp.escape(tag_value)}/i
 		@urll="http://farm"+e.attributes['farm']+".static.flickr.com/"+e.attributes['server']+"/"+e.attributes['id']+"_"+e.attributes['secret']+".jpg";
 #		@flickrURL.push(url)
 		end
 		}
    end
+
+  def set_urll2(idx)
+	@urll2[idx] = @urll
+  end
+
+  def set_urll3(idx)
+	@urll3[idx] = @urll
+  end
 
 end

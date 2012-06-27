@@ -33,4 +33,28 @@
 <br />
 <br />
 
-<%= link_to 'Bethel Picture', @urll, :class => "btn btn-success" %>
+<tr>
+	<td>Bethel Church Photos from Flickr using Flickr API</td>
+</tr>
+
+<br />
+
+<% (1..5).each do |idx| %>
+<% if @urll2[idx] != nil %>
+	<img src="<%=@urll2[idx]%>" height="120" width="170"/>
+<% end %>
+<% end %>
+
+<br />
+<br />
+
+<tr>
+	<td>Bethel Photos from Flickr using Flickr API </td>
+</tr>
+<br />
+
+<% (1..5).each do |idx| %>
+<% if @urll3[idx] != nil %>
+	<img src="<%=@urll3[idx]%>" height="120" width="170"/>
+<% end %>
+<% end %>

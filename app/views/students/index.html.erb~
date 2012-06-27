@@ -31,5 +31,30 @@
 <%= link_to 'New Student', new_student_path, :class => "btn btn-primary" %>
 
 <br />
+<br />
 
-<%= link_to 'Bethel Picture', @urll, :class => "btn btn-success" %>
+<tr>
+	<td>Bethel Church Pictures from Flickr using Flickr API</td>
+</tr>
+
+<br />
+
+<% (1..5).each do |idx| %>
+<% if @urll2[idx] != nil %>
+	<img src="<%=@urll2[idx]%>" height="120"/>
+<% end %>
+<% end %>
+
+<br />
+<br />
+
+<tr>
+	<td>Bethel Pictures from Flickr using Flickr API </td>
+</tr>
+<br />
+
+<% (1..5).each do |idx| %>
+<% if @urll3[idx] != nil %>
+	<img src="<%=@urll3[idx]%>" height="120" width="170"/>
+<% end %>
+<% end %>
