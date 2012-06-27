@@ -88,7 +88,7 @@ class StudentsController < ApplicationController
 	require 'uri'
 	require 'rexml/document'
 	uri = URI.parse("http://api.flickr.com/services/rest/")
-	params={'method'=>'flickr.photos.search','api.key'=>'cf605e9203bdddb1fd806b04a620ce50','accuracy'=>'10','sort'=>'relevance','media'=>'photos','tags'=>'bethel church'}
+	params={'method'=>'flickr.photos.search','api.key'=>'cf605e9203bdddb1fd806b04a620ce50','accuracy'=>'10','sort'=>'relevance','media'=>'photos','tags'=>'bethel, bethel church'}
 
 	http=Net::HTTP.new(uri.host,uri.port)
 	request=Net::HTTP::Get.new(uri.path)
@@ -101,7 +101,7 @@ class StudentsController < ApplicationController
 	xml_data = response.body
 	doc = REXML::Document.new(xml_data)
 		doc.root.elements[1].each_element{|e|
-		if e.attributes['title'] =~ /#{Regexp.escape('bethel church')}/i
+		if e.attributes['title'] =~ /#{Regexp.escape('bethel, bethel church')}/i
 		@urll="http://farm"+e.attributes['farm']+".static.flickr.com/"+e.attributes['server']+"/"+e.attributes['id']+"_"+e.attributes['secret']+".jpg";
 #		@flickrURL.push(url)
 		end
