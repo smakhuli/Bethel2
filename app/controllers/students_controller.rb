@@ -1,6 +1,11 @@
 class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
+
+  # Page Caching
+  caches_page :index
+  caches_page :image, :gzip => :best_speed
+
   def index
     @students = Student.all
 
@@ -14,7 +19,6 @@ class StudentsController < ApplicationController
     end
 
     @urll3 = Array.new(5)
-#    @index = 4
     (1..@index).each do |q|
 	    flickrAPI(q, "Bethel")
 
@@ -32,9 +36,12 @@ class StudentsController < ApplicationController
   def show
     @student = Student.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @student }
+    #If the request is stale according to the given timestamp and etag value then execute the code
+    if stale?(:last_modified => @student.updated_at.utc, :etag => @student)
+    	respond_to do |format|
+      	    format.html # show.html.erb
+      	    format.json { render json: @student }
+    	end
     end
   end
 
@@ -133,4 +140,4 @@ class StudentsController < ApplicationController
 	@urll3[idx] = @urll
   end
 
-end
+end	  
